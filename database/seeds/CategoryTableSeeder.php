@@ -3,7 +3,9 @@
 use Illuminate\Database\Seeder;
 use App\Category;
 use App\Restaurant;
-
+use App\Dish;
+use App\Course;
+use Faker\Generator as Faker;
 class CategoryTableSeeder extends Seeder
 {
     /**
@@ -11,7 +13,7 @@ class CategoryTableSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(Faker $faker)
     {
         $categories = [
             [
@@ -39,7 +41,6 @@ class CategoryTableSeeder extends Seeder
                 'img' => '\img\hamburger-di-carne-americano.jpg'
             ]
         ];
-
 
         $restaurants = [
             [
@@ -140,9 +141,19 @@ class CategoryTableSeeder extends Seeder
             ],
 
         ];
+        $courses = [
+            ['name' => 'Antipasti'],
+            ['name' => 'Primi'],
+            ['name' => 'Secondi'],
+            ['name' => 'Contorni'],
+            ['name' => 'Dolci'],
+            ['name' => 'Bevande'],
+            ['name' => 'Altro'],
+        ];
 
 
         $categoriesID = [];
+        $coursesID = [];
 
         foreach ($categories as $category) {
             $newCategory = new Category();
@@ -151,6 +162,14 @@ class CategoryTableSeeder extends Seeder
             $newCategory->save();
             $categoriesID[] = $newCategory->id;
         };
+
+        foreach ($courses as $course) {
+            $newCourse = new Course();
+            $newCourse->name = $course['name'];
+            $newCourse->save();
+
+            $coursesID[] = $newCourse->id;
+        }
 
         foreach ($restaurants as $restaurant) {
             $newRestaurant = new Restaurant();
@@ -176,6 +195,18 @@ class CategoryTableSeeder extends Seeder
             };
             if ($restaurant['type'] == 'us') {
                 $newRestaurant->category()->attach(6);
+            }
+            for($i = 0; $i < 20; $i++) {
+                $newDish = new Dish();
+                $newDish->name = $faker->words(2,true);
+                $newDish->price = $faker->randomFloat(2,1,500);
+                $newDish->ingredients = $faker->sentence(6,true);
+                $newDish->restaurant_id = $newRestaurant->id;
+                $keyCourse = array_rand($coursesID, 1);
+                $course = $coursesID[$keyCourse];
+                $newDish->course_id =  $course;
+                $newDish->save();
+
             }
         }
     }
