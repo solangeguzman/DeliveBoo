@@ -8,6 +8,6 @@ class course extends Model
 {
     public function dish()
     {
-        return $this->belongsToMany(Dish::class);
+        return $this->hasMany(Dish::class);
     }
 }

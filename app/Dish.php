@@ -13,7 +13,7 @@ class dish extends Model
 
     public function course()
     {
-        return $this->belongsToMany(Course::class);
+        return $this->belongsTo(Course::class);
     }
 
     public function order()
