@@ -5,31 +5,29 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Restaurant;
-use App\Http\Resources\RestaurantCollection;
+use App\Http\Resources\RestaurantResource;
 
 class RestaurantController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response           //TO DO COMANDO SEARCH API
      */
     public function index()
     {
         $allRestaurants = Restaurant::all();
 
-        return RestaurantCollection::collection($allRestaurants);
+        return RestaurantResource::collection($allRestaurants);
     }
+    
 
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
-    }
+  
 
     /**
      * Store a newly created resource in storage.
@@ -39,7 +37,7 @@ class RestaurantController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //   
     }
 
     /**
@@ -50,7 +48,7 @@ class RestaurantController extends Controller
      */
     public function show($id)
     {
-        //
+        return new RestaurantResource(Restaurant::find($id));
     }
 
     /**
@@ -59,10 +57,7 @@ class RestaurantController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        //
-    }
+    
 
     /**
      * Update the specified resource in storage.

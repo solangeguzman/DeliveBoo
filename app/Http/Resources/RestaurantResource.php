@@ -2,27 +2,26 @@
 
 namespace App\Http\Resources;
 
-use Illuminate\Http\Resources\Json\ResourceCollection;
+use Illuminate\Http\Resources\Json\JsonResource;
 
-class RestaurantCollection extends ResourceCollection
+class RestaurantResource extends JsonResource
 {
     /**
-     * Transform the resource collection into an array.
+     * Transform the resource into an array.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function toArray($request)
-    {   
-        dd($request);
-        return [
+    {
+        return  [
             'id'=>$this->id,
             'name'=>$this->name,
             'address'=>$this->address,
             'img'=>$this->img,
             'user_id'=>$this->user_id,
             'category'=>$this->category[0]['name'],
-            
+
         ];
     }
 }
