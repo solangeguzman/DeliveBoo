@@ -9,6 +9,12 @@ use App\Http\Resources\RestaurantResource;
 
 class RestaurantController extends Controller
 {
+
+    public $example;
+
+
+
+
     /**
      * Display a listing of the resource.
      *
@@ -19,15 +25,17 @@ class RestaurantController extends Controller
         $allRestaurants = Restaurant::all();
 
         return RestaurantResource::collection($allRestaurants);
+
+        // return response()->json($this->example);
     }
-    
+
 
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-  
+
 
     /**
      * Store a newly created resource in storage.
@@ -37,7 +45,14 @@ class RestaurantController extends Controller
      */
     public function store(Request $request)
     {
-        //   
+        //return response()->json($request);
+        $data = $request->all();
+
+
+        $newRestaurant = new Restaurant();
+        $this->fillAndSave($newRestaurant, $data);
+
+        return response('status: ok');
     }
 
     /**
@@ -57,7 +72,7 @@ class RestaurantController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    
+
 
     /**
      * Update the specified resource in storage.
@@ -80,5 +95,12 @@ class RestaurantController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function fillAndSave(Restaurant $restaurant, $data)
+    {
+        $restaurant->name = $data['name'];
+        $restaurant->address = $data['address'];
+        $restaurant->save();
     }
 }
