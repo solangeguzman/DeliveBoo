@@ -4,22 +4,22 @@
       <div class="form-group">
         <label for="name">Name</label>
         <input
-          v-model="nameRe"
+          v-model="nameTest"
           type="text"
           class="form-control"
           id="name"
-          placeholder="Name"
+          placeholder="nameTest"
         />
       </div>
       <div class="form-group">
         <label for="address">Address</label>
         <input
-          v-model="addressRe"
+          v-model="addressTest"
           type="text"
           class="form-control"
           id="address"
           aria-describedby="addressHelp"
-          placeholder="Enter address"
+          placeholder="addressTest"
         />
         <small id="addressHelp" class="form-text text-muted"
           >We'll never share your email with anyone else.</small
@@ -46,10 +46,13 @@ export default {
       addressRe: "",
       text: "",
       responseEx: "",
+      nameTest: "",
+      addressTest: "",
     };
   },
   mounted() {
     console.log("Component mounted.");
+    this.getRestaurant();
   },
   methods: {
     postRestaurant() {
@@ -63,8 +66,8 @@ export default {
         });
     },
     getRestaurant() {
-      axios.get("/api/restaurants").then((response) => {
-        this.responseEx = response.data;
+      axios.get("/api/restaurants/17").then((response) => {
+        console.log(response);
       });
     },
   },

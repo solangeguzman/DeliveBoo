@@ -10,11 +10,6 @@ use App\Http\Resources\RestaurantResource;
 class RestaurantController extends Controller
 {
 
-    public $example;
-
-
-
-
     /**
      * Display a listing of the resource.
      *
