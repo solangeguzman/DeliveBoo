@@ -21,3 +21,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::resource('restaurants', 'Api\RestaurantController');
 Route::resource('dishes', 'Api\DishController');
 Route::resource('orders', 'Api\OrderController');
+Route::resource('categories', 'Api\CategoryController');
+Route::resource('courses', 'Api\CourseController');
+Route::resource('categorysearch', 'Api\CategorySearchController');
+
+
+

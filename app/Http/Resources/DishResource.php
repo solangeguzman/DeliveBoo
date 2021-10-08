@@ -20,7 +20,7 @@ class DishResource extends JsonResource
             'price'=>$this->price,
             'ingredients'=>$this->ingredients,
             'course'=>$this->course,
-            'resturant'=>$this->restaurant,
+            'restaurant'=>$this->restaurant,
             
 
         ];

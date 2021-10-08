@@ -43,10 +43,9 @@ class RestaurantController extends Controller
         //return response()->json($request);
         $data = $request->all();
 
-
         $newRestaurant = new Restaurant();
         $this->fillAndSave($newRestaurant, $data);
-
+        $newRestaurant->category()->attach($data['category_id']);
         return response('status: ok');
     }
 
@@ -76,9 +75,14 @@ class RestaurantController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,$id)
     {
-        //
+        $data = $request->all();
+        $restaurant = Restaurant::find($id);
+
+        $this->fillAndSave($restaurant, $data);
+        $restaurant->category()->sync($data['category_id']);
+        return response('status: ok');
     }
 
     /**
@@ -89,7 +93,11 @@ class RestaurantController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $restaurant = Restaurant::find($id);
+
+        $restaurant->delete();
+
+        return response('status: ok');
     }
 
     public function fillAndSave(Restaurant $restaurant, $data)
