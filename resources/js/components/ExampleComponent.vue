@@ -4,7 +4,7 @@
       <div class="form-group">
         <label for="name">Name</label>
         <input
-          v-model="nameDi"
+          v-model="nameRe"
           type="text"
           class="form-control"
           id="name"
@@ -12,45 +12,27 @@
         />
       </div>
       <div class="form-group">
-        <label for="price">price</label>
+        <label for="price">address</label>
         <input
-          v-model="priceDi"
-          type="number"
+          v-model="addressRe"
+          type="text"
           class="form-control"
           id="price"
           placeholder="nameTest"
         />
       </div>
       <div class="form-group">
-        <label for="resturant">restaurant</label>
+        <label for="resturant">category</label>
         <input
-          v-model="restaurantDi"
-          type="text"
+          v-model="category"
+          type="number"
           class="form-control"
           id="resturant"
           placeholder="nameTest"
         />
       </div>
       <div class="form-group">
-        <label for="courseDi">courseDi</label>
-        <input
-          v-model="courseDi"
-          type="text"
-          class="form-control"
-          id="courseDi"
-          placeholder="nameTest"
-        />
-      </div>
-      <div class="form-group">
-        <label for="ingredients">ingredients</label>
-        <input
-          v-model="ingredientsDi"
-          type="text"
-          class="form-control"
-          id="ingredients"
-          aria-describedby="addressHelp"
-          placeholder="addressTest"
-        />
+
         <small id="addressHelp" class="form-text text-muted"
           >We'll never share your email with anyone else.</small
         >
@@ -75,12 +57,10 @@ export default {
   data() {
     return {
       dish: "",
-      nameDi: "",
-      priceDi: 0,
-      text: "",
-      restaurantDi: "",
-      ingredientsDi: "",
-      courseDi: ""
+      nameRe: "",
+      addressRe: "",
+      category: 0,
+      text: ""
     };
   },
   mounted() {
@@ -90,27 +70,22 @@ export default {
   methods: {
     postRestaurant() {
       axios
-        .put("/api/dishes/" + this.dish.id, {
-          name: this.nameDi,
-          price: parseInt(this.priceDi),
-          restaurant_id: parseInt(this.restaurantDi),
-          course_id: parseInt(this.courseDi),
-          ingredients: this.ingredientsDi
+        .put("/api/restaurants/21", {
+          name: this.nameRe,
+          address: this.addressRe,
+          category_id: parseInt(this.category),
         })
         .then((response) => {
           this.text = response.data;
         });
     },
     getRestaurant() {
-      axios.get("/api/dishes/5").then((response) => {
+      axios.get("/api/restaurants").then((response) => {
         console.log(response.data.data)
-        this.dish = response.data.data[0]
-        this.nameDi = response.data.data[0].name
-        this.priceDi = response.data.data[0].price
-        this.ingredientsDi = response.data.data[0].ingredients
-        this.restaurantDi = response.data.data[0].restaurant.id
-        this.courseDi = response.data.data[0].course.id
 
+        this.nameRe = response.data.data.name
+        this.addressRe = response.data.data.address
+        this.category = response.data.data.category
 
       }); 
     },
@@ -122,3 +97,7 @@ export default {
   },
 };
 </script>
+
+<style lang="sass" scoped>
+
+</style>
