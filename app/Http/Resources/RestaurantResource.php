@@ -20,7 +20,7 @@ class RestaurantResource extends JsonResource
             'address'=>$this->address,
             'img'=>$this->img,
             'user_id'=>$this->user_id,
-            'category'=>$this->category[0]['name'],
+            'category'=>$this->category,
 
         ];
     }

@@ -26,6 +26,48 @@
                         </div>
 
                         <div class="form-group row">
+                            <label for="surname" class="col-md-4 col-form-label text-md-right">{{ __('Surname') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="surname" type="text" class="form-control @error('surname') is-invalid @enderror" name="surname" value="{{ old('surname') }}" required autocomplete="surname" autofocus>
+
+                                @error('surname')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="PIVA" class="col-md-4 col-form-label text-md-right">{{ __('PIVA') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="PIVA" type="text" class="form-control @error('PIVA') is-invalid @enderror" name="PIVA" value="{{ old('PIVA') }}" required autocomplete="PIVA" autofocus>
+
+                                @error('PIVA')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="IBAN" class="col-md-4 col-form-label text-md-right">{{ __('IBAN') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="IBAN" type="text" class="form-control @error('IBAN') is-invalid @enderror" name="IBAN" value="{{ old('IBAN') }}" required autocomplete="IBAN" autofocus>
+
+                                @error('IBAN')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
                             <div class="col-md-6">

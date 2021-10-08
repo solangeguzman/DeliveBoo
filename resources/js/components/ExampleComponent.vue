@@ -4,7 +4,7 @@
       <div class="form-group">
         <label for="name">Name</label>
         <input
-          v-model="nameTest"
+          v-model="nameDi"
           type="text"
           class="form-control"
           id="name"
@@ -12,12 +12,42 @@
         />
       </div>
       <div class="form-group">
-        <label for="address">Address</label>
+        <label for="price">price</label>
         <input
-          v-model="addressTest"
+          v-model="priceDi"
+          type="number"
+          class="form-control"
+          id="price"
+          placeholder="nameTest"
+        />
+      </div>
+      <div class="form-group">
+        <label for="resturant">restaurant</label>
+        <input
+          v-model="restaurantDi"
           type="text"
           class="form-control"
-          id="address"
+          id="resturant"
+          placeholder="nameTest"
+        />
+      </div>
+      <div class="form-group">
+        <label for="courseDi">courseDi</label>
+        <input
+          v-model="courseDi"
+          type="text"
+          class="form-control"
+          id="courseDi"
+          placeholder="nameTest"
+        />
+      </div>
+      <div class="form-group">
+        <label for="ingredients">ingredients</label>
+        <input
+          v-model="ingredientsDi"
+          type="text"
+          class="form-control"
+          id="ingredients"
           aria-describedby="addressHelp"
           placeholder="addressTest"
         />
@@ -32,8 +62,10 @@
       <button @click="getRestaurant()" type="button" class="btn btn-primary">
         Get
       </button>
+      <button @click="destroyRestaurant()" type="button" class="btn btn-primary">
+        Destroy
+      </button>
       <h1>{{ text }}</h1>
-      <p>{{ responseEx }}</p>
     </form>
   </div>
 </template>
@@ -42,12 +74,13 @@
 export default {
   data() {
     return {
-      nameRe: "",
-      addressRe: "",
+      dish: "",
+      nameDi: "",
+      priceDi: 0,
       text: "",
-      responseEx: "",
-      nameTest: "",
-      addressTest: "",
+      restaurantDi: "",
+      ingredientsDi: "",
+      courseDi: ""
     };
   },
   mounted() {
@@ -57,19 +90,35 @@ export default {
   methods: {
     postRestaurant() {
       axios
-        .post("/api/restaurants", {
-          name: this.nameRe,
-          address: this.addressRe,
+        .put("/api/dishes/" + this.dish.id, {
+          name: this.nameDi,
+          price: parseInt(this.priceDi),
+          restaurant_id: parseInt(this.restaurantDi),
+          course_id: parseInt(this.courseDi),
+          ingredients: this.ingredientsDi
         })
         .then((response) => {
           this.text = response.data;
         });
     },
     getRestaurant() {
-      axios.get("/api/restaurants/17").then((response) => {
-        console.log(response);
-      });
+      axios.get("/api/dishes/5").then((response) => {
+        console.log(response.data.data)
+        this.dish = response.data.data[0]
+        this.nameDi = response.data.data[0].name
+        this.priceDi = response.data.data[0].price
+        this.ingredientsDi = response.data.data[0].ingredients
+        this.restaurantDi = response.data.data[0].restaurant.id
+        this.courseDi = response.data.data[0].course.id
+
+
+      }); 
     },
+    destroyRestaurant() {
+      axios.delete("/api/dishes/" + this.dish.id).then((response) => {
+          this.text = response.data;
+      }); 
+    }
   },
 };
 </script>

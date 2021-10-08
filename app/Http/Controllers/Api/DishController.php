@@ -16,9 +16,7 @@ class DishController extends Controller
      */
     public function index()
     {   
-        $allDishes = Dish::where('restaurant_id', 1)->get();
-        
-        return DishResource::collection($allDishes);
+
     }
 
     /**
@@ -39,7 +37,13 @@ class DishController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+
+
+        $newDish = new Dish();
+        $this->fillAndSave($newDish, $data);
+
+        return response('status: ok');
     }
 
     /**
@@ -75,7 +79,12 @@ class DishController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->all();
+        $dish = Dish::find($id);
+
+        $this->fillAndSave($dish, $data);
+
+        return response('status: ok');
     }
 
     /**
@@ -86,6 +95,20 @@ class DishController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $dish = Dish::find($id);
+
+        $dish->delete();
+
+        return response('status: ok');
+    }
+
+    public function fillAndSave(Dish $dish, $data)
+    {
+        $dish->name = $data['name'];
+        $dish->price = $data['price'];
+        $dish->ingredients = $data['ingredients'];
+        $dish->course_id = $data['course_id'];
+        $dish->restaurant_id = $data['restaurant_id'];
+        $dish->save();
     }
 }

@@ -76,9 +76,14 @@ class RestaurantController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,$id)
     {
-        //
+        $data = $request->all();
+        $restaurant = Restaurant::find($id);
+
+        $this->fillAndSave($restaurant, $data);
+
+        return response('status: ok');
     }
 
     /**
@@ -89,7 +94,11 @@ class RestaurantController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $restaurant = Restaurant::find($id);
+
+        $restaurant->delete();
+
+        return response('status: ok');
     }
 
     public function fillAndSave(Restaurant $restaurant, $data)
