@@ -134,7 +134,7 @@ export default {
   },
   mounted() {
     console.log("Component mounted.");
-    this.getRestaurant();
+    this.getOrder();
   },
   methods: {
     postOrder() {
@@ -164,13 +164,19 @@ export default {
           this.text = response.data;
         });
     },
-    getRestaurant() {
-      axios.get("/api/restaurants/21").then((response) => {
-        console.log(response.data.data);
+    getOrder() {
+      axios.get("/api/orders/1").then((response) => {
+        console.log(response);
 
-        this.nameRe = response.data.data.name;
-        this.addressRe = response.data.data.address;
-        this.category = response.data.data.category;
+        this.name = response.data.data.customer_name;
+        this.surname = response.data.data.customer_surname;
+        this.address = response.data.data.customer_adrress;
+        this.email = response.data.data.customer_email;
+        this.phone = response.data.data.customer_phone;
+        this.price = response.data.data.total_price;
+        this.status = response.data.data.status;
+        this.discount = response.data.data.discount;
+        this.notes = response.data.data.notes;
       });
     },
     destroyRestaurant() {
