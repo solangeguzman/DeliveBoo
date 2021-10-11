@@ -146,7 +146,9 @@ export default {
           status: this.status,
           discount: this.discount,
           notes: this.notes,
-          dish: 1
+          dish: [
+            1
+          ]
         })
         .then((response) => {
           this.text = response.data;
