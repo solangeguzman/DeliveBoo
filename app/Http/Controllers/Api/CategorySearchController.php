@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Builder;
+
 
 use App\Restaurant;
 use App\Category;
@@ -40,18 +41,19 @@ class CategorySearchController extends Controller
      */
     public function show($id)
     {
-        // $restaurant = Restaurant::has('category', function (Builder $query) {
-        // $query->where('name', 'like', 'italiano');
-        // })->get();;
-        // return response()->json($restaurant);
-        $allRestaurant = Restaurant::all();
-        $trueRestaurant = [];
-        foreach ($allRestaurant as $restaurant) {
-            if ($restaurant->category[0]['id'] == $id) {
-                $trueRestaurant[] = $restaurant;
-            }
-        }
-        return response()->json($trueRestaurant);
+        // $allRestaurant = Restaurant::all();
+        // $trueRestaurant = [];
+        // foreach ($allRestaurant as $restaurant) {
+        //     if ($restaurant->category[0]['id'] == $id) {
+        //         $trueRestaurant[] = $restaurant;
+        //     }
+        // }
+        // return response()->json($trueRestaurant);
+        $category = Category::where('id', 'like', $id)->get()[0]['name'];
+        $restaurant = Restaurant::whereHas('category', function (Builder $query) use ($category) {
+            $query->where('name', 'like', $category);
+        })->get();;
+        return response()->json($restaurant);
     }
 
     /**

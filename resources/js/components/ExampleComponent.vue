@@ -25,7 +25,7 @@
         <label for="resturant">category</label>
         <input
           v-model="category"
-          type="number"
+          type="text" 
           class="form-control"
           id="resturant"
           placeholder="nameTest"
@@ -80,7 +80,7 @@ export default {
         });
     },
     getRestaurant() {
-      axios.get("/api/restaurants").then((response) => {
+      axios.get("/api/restaurants/21").then((response) => {
         console.log(response.data.data)
 
         this.nameRe = response.data.data.name
@@ -90,7 +90,7 @@ export default {
       }); 
     },
     destroyRestaurant() {
-      axios.delete("/api/dishes/" + this.dish.id).then((response) => {
+      axios.delete("/api/restaurants/" + this.dish.id).then((response) => {
           this.text = response.data;
       }); 
     }
