@@ -16,8 +16,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $allOrder = Order::all();
-        return OrderResource::collection($allOrder);
+
     }
 
     /**
@@ -39,7 +38,7 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        //
+        return new OrderResource(Order::find($id));
     }
 
     /**
@@ -51,7 +50,7 @@ class OrderController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+       
     }
 
     /**
@@ -63,5 +62,16 @@ class OrderController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function orderRestaurant($id) 
+    {
+        $allOrder = Order::all();
+        $trueOrder = [];
+        foreach ($allOrder as $order) {
+                if ($order->dish[0]->restaurant['id'] == $id) {
+                    $trueOrder[] = $order;
+                }
+        }
+        return OrderResource::collection($trueOrder);
     }
 }

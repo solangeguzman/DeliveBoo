@@ -26,3 +26,4 @@ Route::resource('courses', 'Api\CourseController');
 Route::resource('categorysearch', 'Api\CategorySearchController');
 
 Route::get('restaurantsearch/{name}', 'Api\restaurantsearchcontroller@research');
+Route::get('orderrestaurant/{id}', 'Api\OrderController@orderRestaurant');
