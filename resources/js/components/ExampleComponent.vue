@@ -4,7 +4,7 @@
       <div class="form-group">
         <label for="name">Name</label>
         <input
-          v-model="nameRe"
+          v-model="customer_name"
           type="text"
           class="form-control"
           id="name"
@@ -12,9 +12,9 @@
         />
       </div>
       <div class="form-group">
-        <label for="price">address</label>
+        <label for="surname">surname</label>
         <input
-          v-model="addressRe"
+          v-model="customer_surname"
           type="text"
           class="form-control"
           id="price"
@@ -22,9 +22,9 @@
         />
       </div>
       <div class="form-group">
-        <label for="resturant">category</label>
+        <label for="address">address</label>
         <input
-          v-model="category"
+          v-model="customer_address"
           type="text" 
           class="form-control"
           id="resturant"
@@ -32,13 +32,74 @@
         />
       </div>
       <div class="form-group">
+      <label for="email">email</label>
+      <input
+        v-model="customer_email"
+        type="text" 
+        class="form-control"
+        id="order"
+        placeholder="nameTest"
+      />
+      </div>
+      <div class="form-group">
+     <label for="phone">phone number</label>
+     <input
+       v-model="customer_phone"
+       type="text" 
+       class="form-control"
+       id="order"
+      placeholder="nameTest"
+      />
+     </div>
+     <div class="form-group">
+    <label for="price">Total Price</label>
+    <input
+      v-model="total_price"
+      type="text" 
+      class="form-control"
+      id="order"
+      placeholder="nameTest"
+    />
+  </div>
+   <div class="form-group">
+   <label for="status">status</label>
+  <input
+    v-model="status"
+    type="text" 
+    class="form-control"
+    id="order"
+    placeholder="nameTest"
+  />
+  </div>
+  <div class="form-group">
+<label for="Discount">Discount</label>
+<input
+  v-model="discount"
+  type="text" 
+  class="form-control"
+  id="order"
+  placeholder="nameTest"
+/>
+</div>
+<div class="form-group">
+<label for="notes">notes</label>
+<input
+  v-model="notes"
+  type="text" 
+  class="form-control"
+  id="order"
+  placeholder="nameTest"
+/>
+</div>
+
+      <div class="form-group">
 
         <small id="addressHelp" class="form-text text-muted"
           >We'll never share your email with anyone else.</small
         >
       </div>
 
-      <button @click="postRestaurant()" type="button" class="btn btn-primary">
+      <button @click="postOrder()" type="button" class="btn btn-primary">
         Submit
       </button>
       <button @click="getRestaurant()" type="button" class="btn btn-primary">
@@ -56,10 +117,15 @@
 export default {
   data() {
     return {
-      dish: "",
-      nameRe: "",
-      addressRe: "",
-      category: 0,
+      customer_name: "",
+      customer_surname: "",
+      customer_address: "",
+      customer_email: "",
+      customer_phone: "",
+      total_price: "",
+      status:"",
+      discount:"",
+      notes:"",
       text: ""
     };
   },
@@ -68,12 +134,21 @@ export default {
     this.getRestaurant();
   },
   methods: {
-    postRestaurant() {
+    postOrder() {
       axios
-        .put("/api/restaurants/21", {
-          name: this.nameRe,
-          address: this.addressRe,
-          category_id: parseInt(this.category),
+        .post("/api/orders", {
+          name: this.customer_name,
+          surname: this.customer_surname,
+          address: this.customer_address,
+          email: this.customer_email,
+          phone: this.customer_phone,
+          price: this.total_price,
+          status: this.status,
+          discount: this.discount,
+          notes: this.notes,
+          dish: [
+            1
+          ]
         })
         .then((response) => {
           this.text = response.data;

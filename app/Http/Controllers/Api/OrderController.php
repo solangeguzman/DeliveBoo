@@ -27,7 +27,16 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data=$request->all();
+        
+
+        $newOrder = new Order();
+        $output = "";
+        $this->fillAndSave($newOrder, $data);
+
+        
+        
+        return response()->json($output);
     }
 
     /**
@@ -73,5 +82,24 @@ class OrderController extends Controller
                 }
         }
         return OrderResource::collection($trueOrder);
+    }
+
+    public function fillAndSave(Order $order, $data){
+        $order->customer_name =$data['name'];
+        $order->customer_surname =$data['surname'];
+        $order->customer_address =$data['address'];
+        $order->customer_email =$data['email'];
+        $order->customer_phone =$data['phone'];
+        $order->total_price =$data['price'];
+        $order->status =$data['status'];
+        $order->discount =$data['discount'];
+        $order->notes =$data['notes'];
+        $order->save();
+
+        foreach($data['dish'] as $dish){
+            $order->dish()->sync($dish);
+        }
+
+        
     }
 }
