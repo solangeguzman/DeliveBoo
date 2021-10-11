@@ -10,4 +10,8 @@ class order extends Model
     {
         return $this->belongsToMany(Dish::class);
     }
+
+    protected $fillable = [
+        'status'
+    ];
 }

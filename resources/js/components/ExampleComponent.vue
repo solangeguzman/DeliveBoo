@@ -134,43 +134,31 @@ export default {
   },
   mounted() {
     console.log("Component mounted.");
-    this.getRestaurant();
+    this.getOrder();
   },
   methods: {
     postOrder() {
       axios
-        .post("/api/orders", {
-          name: this.customer_name,
-          surname: this.customer_surname,
-          address: this.customer_address,
-          email: this.customer_email,
-          phone: this.customer_phone,
-          price: this.total_price,
-          status: this.status,
-          discount: this.discount,
-          notes: this.notes,
-          dish: [
-            {
-              id: 5,
-              quantity: 2,
-            },
-            {
-              id: 10,
-              quantity: 4,
-            },
-          ],
+        .put("/api/orders/1", {
+          status: this.status
         })
         .then((response) => {
           this.text = response.data;
         });
     },
-    getRestaurant() {
-      axios.get("/api/restaurants/21").then((response) => {
-        console.log(response.data.data);
+    getOrder() {
+      axios.get("/api/orders/1").then((response) => {
+        console.log(response.data);
 
-        this.nameRe = response.data.data.name;
-        this.addressRe = response.data.data.address;
-        this.category = response.data.data.category;
+        this.customer_name = response.data.data.customer_name;
+        this.customer_surname = response.data.data.customer_surname;
+        this.customer_address = response.data.data.customer_address;
+        this.customer_email = response.data.data.customer_email;
+        this.customer_phone = response.data.data.customer_phone;
+        this.total_price = response.data.data.total_price;
+        this.status = response.data.data.status;
+        this.discount = response.data.data.discount;
+        this.notes = response.data.data.notes;
       });
     },
     destroyRestaurant() {

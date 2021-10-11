@@ -63,6 +63,11 @@ class OrderController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $data = $request-> all();
+        $order = Order::find($id);
+        $order -> status = $data['status'];
+        $order->save();
+        return response('status: ok');
     }
 
     /**
