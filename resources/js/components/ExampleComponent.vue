@@ -139,26 +139,8 @@ export default {
   methods: {
     postOrder() {
       axios
-        .post("/api/orders", {
-          name: this.customer_name,
-          surname: this.customer_surname,
-          address: this.customer_address,
-          email: this.customer_email,
-          phone: this.customer_phone,
-          price: this.total_price,
-          status: this.status,
-          discount: this.discount,
-          notes: this.notes,
-          dish: [
-            {
-              id: 5,
-              quantity: 2,
-            },
-            {
-              id: 10,
-              quantity: 4,
-            },
-          ],
+        .put("/api/orders/1", {
+          status: this.status
         })
         .then((response) => {
           this.text = response.data;
@@ -166,14 +148,14 @@ export default {
     },
     getOrder() {
       axios.get("/api/orders/1").then((response) => {
-        console.log(response);
+        console.log(response.data);
 
-        this.name = response.data.data.customer_name;
-        this.surname = response.data.data.customer_surname;
-        this.address = response.data.data.customer_adrress;
-        this.email = response.data.data.customer_email;
-        this.phone = response.data.data.customer_phone;
-        this.price = response.data.data.total_price;
+        this.customer_name = response.data.data.customer_name;
+        this.customer_surname = response.data.data.customer_surname;
+        this.customer_address = response.data.data.customer_address;
+        this.customer_email = response.data.data.customer_email;
+        this.customer_phone = response.data.data.customer_phone;
+        this.total_price = response.data.data.total_price;
         this.status = response.data.data.status;
         this.discount = response.data.data.discount;
         this.notes = response.data.data.notes;
