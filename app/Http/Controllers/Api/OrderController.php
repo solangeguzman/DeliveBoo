@@ -16,7 +16,6 @@ class OrderController extends Controller
      */
     public function index()
     {
-
     }
 
     /**
@@ -27,16 +26,21 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        $data=$request->all();
-        
+        $data = $request->all();
+
 
         $newOrder = new Order();
         $output = "";
         $this->fillAndSave($newOrder, $data);
 
-        
-        
-        return response()->json($output);
+        foreach ($data['dish'] as $dish) {
+            $newOrder->dish()->attach($dish['id'], ['quantity' => $dish['quantity']]);
+        }
+
+
+
+
+        return response('status:ok');
     }
 
     /**
@@ -59,7 +63,6 @@ class OrderController extends Controller
      */
     public function update(Request $request, $id)
     {
-       
     }
 
     /**
@@ -72,34 +75,29 @@ class OrderController extends Controller
     {
         //
     }
-    public function orderRestaurant($id) 
+    public function orderRestaurant($id)
     {
         $allOrder = Order::all();
         $trueOrder = [];
         foreach ($allOrder as $order) {
-                if ($order->dish[0]->restaurant['id'] == $id) {
-                    $trueOrder[] = $order;
-                }
+            if ($order->dish[0]->restaurant['id'] == $id) {
+                $trueOrder[] = $order;
+            }
         }
         return OrderResource::collection($trueOrder);
     }
 
-    public function fillAndSave(Order $order, $data){
-        $order->customer_name =$data['name'];
-        $order->customer_surname =$data['surname'];
-        $order->customer_address =$data['address'];
-        $order->customer_email =$data['email'];
-        $order->customer_phone =$data['phone'];
-        $order->total_price =$data['price'];
-        $order->status =$data['status'];
-        $order->discount =$data['discount'];
-        $order->notes =$data['notes'];
+    public function fillAndSave(Order $order, $data)
+    {
+        $order->customer_name = $data['name'];
+        $order->customer_surname = $data['surname'];
+        $order->customer_address = $data['address'];
+        $order->customer_email = $data['email'];
+        $order->customer_phone = $data['phone'];
+        $order->total_price = $data['price'];
+        $order->status = $data['status'];
+        $order->discount = $data['discount'];
+        $order->notes = $data['notes'];
         $order->save();
-
-        foreach($data['dish'] as $dish){
-            $order->dish()->sync($dish);
-        }
-
-        
     }
 }
