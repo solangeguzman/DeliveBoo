@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class DishController extends Controller
+class MenùController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -45,7 +45,7 @@ class DishController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('/app/menù', ['id' => $id]);
     }
 
     /**

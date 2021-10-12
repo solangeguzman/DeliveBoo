@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('/app.homepage');
 });
 
 Auth::routes();
@@ -25,4 +25,18 @@ Route::get('/app', function () {
     return view('app.exampleform');
 });
 
-Route::resource('restaurants', 'RestaurantController');
+
+
+
+
+Route::get('/dashboard', function () {
+    return view('app.dashboard');
+})->middleware('auth');;
+
+Route::get('/menù/{id}', 'MenùController@show')->middleware('auth');;
+
+Route::get('/orders/{id}', 'OrderController@show')->middleware('auth');;
+
+Route::get('/stats/{id}', 'StatsController@show')->middleware('auth');;
+
+Route::get('/restaurant/{id}', 'RestaurantController@show');

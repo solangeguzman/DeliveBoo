@@ -51,14 +51,14 @@ class RestaurantController extends Controller
 
     /**
      * Display the specified resource.
-     *
-     * @param  int  $id
+     *     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
         return new RestaurantResource(Restaurant::find($id));
     }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -75,7 +75,7 @@ class RestaurantController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,$id)
+    public function update(Request $request, $id)
     {
         $data = $request->all();
         $restaurant = Restaurant::find($id);
@@ -105,5 +105,11 @@ class RestaurantController extends Controller
         $restaurant->name = $data['name'];
         $restaurant->address = $data['address'];
         $restaurant->save();
+    }
+
+    public function userRestaurant($id)
+    {
+        $restaurant = Restaurant::where('user_id', 'like', $id)->get();
+        return  RestaurantResource::collection($restaurant);
     }
 }
