@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Restaurant;
 use Illuminate\Http\Request;
 
-class RestaurantController extends Controller
+class StatsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -46,7 +45,7 @@ class RestaurantController extends Controller
      */
     public function show($id)
     {
-        return view('/app/restaurant', ['id' => $id]);
+        return view('/app/stats', ['id' => $id]);
     }
 
     /**

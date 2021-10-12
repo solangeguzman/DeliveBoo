@@ -140,7 +140,7 @@ export default {
     postOrder() {
       axios
         .put("/api/orders/1", {
-          status: this.status
+          status: this.status,
         })
         .then((response) => {
           this.text = response.data;
@@ -170,5 +170,10 @@ export default {
 };
 </script>
 
-<style lang="sass" scoped>
+<style lang="scss" scoped>
+@import "../../sass/app.scss";
+
+.container {
+  font-family: "Roboto Slab", serif;
+}
 </style>
