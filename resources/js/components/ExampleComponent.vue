@@ -175,5 +175,8 @@ export default {
 
 .container {
   font-family: "Roboto Slab", serif;
+  input {
+    background-color: blue;
+  }
 }
 </style>
